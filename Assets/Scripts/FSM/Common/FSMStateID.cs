@@ -3,6 +3,9 @@ namespace AI.FSM {
         Default,
         PalStableLaugh,
         PalUnstableLaugh,
-        PalCry
+        PalCry,
+        GameEnd,
+        GameRunning,
+        BeforeGameStart
     }
 }

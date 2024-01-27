@@ -8,6 +8,8 @@ namespace AI.FSM {
                 return false;
             }
             lastHandleTime = Time.time;
+            if (GameManagerFSM.Instance.CurrentState != FSMStateID.GameRunning)
+                return false;
             return Update(fsm);
         }
         protected abstract bool Update(FSMBase fsm);

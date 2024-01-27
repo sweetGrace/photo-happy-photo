@@ -6,6 +6,8 @@ namespace AI.FSM {
         PalStableLaughToCry,
         PalUnstableLaughToCry,
         NearbyPalCrying,
-        NoNearbyPalCrying
+        NoNearbyPalCrying,
+        StartGame,
+        GameEnd
     }
 }

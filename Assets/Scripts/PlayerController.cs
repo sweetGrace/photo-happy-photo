@@ -38,11 +38,17 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void FixedUpdate() {
+        int combo = GameManagerFSM.Instance.combo;
         HandleMove();
         HandleItemUse();
         HandlePickUp();
         HandleSwap();
         HandleThrow();
+
+        if ((Input.GetButton("Pickup") || Input.GetButton("UseLeft") || Input.GetButton("UseRight")) &&
+            combo == GameManagerFSM.Instance.combo) {
+            GameManagerFSM.Instance.combo = 0;
+        }
     }
 
     private void HandleThrow() {

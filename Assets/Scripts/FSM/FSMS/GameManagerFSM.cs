@@ -2,7 +2,7 @@ using UnityEngine;
 using AI.FSM;
 
 public class GameManagerFSM : FSMBase {
-    public static GameManagerFSM Instance { get; private set; }
+    public static GameManagerFSM Instance { get; private set; } = null;
 
     [Range(0, 600f), Tooltip("Unit: seconds")]
     public float GameTime;
@@ -21,7 +21,7 @@ public class GameManagerFSM : FSMBase {
         }
     }
 
-    private void Awake() {
+    protected override void Init() {
         if (Instance == null) {
             Instance = this;
         } else {
@@ -34,7 +34,7 @@ public class GameManagerFSM : FSMBase {
         base.SetUpFSM();
 
         GameEndState endState = new GameEndState();
-        endState.AddMap(FSMTriggerID.StartGame, FSMStateID.GameRunning);
+        endState.AddMap(FSMTriggerID.GameStart, FSMStateID.GameRunning);
         _states.Add(endState);
 
         GameRunningState gameRunningState = new GameRunningState();

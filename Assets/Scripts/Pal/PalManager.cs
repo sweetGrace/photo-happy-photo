@@ -17,7 +17,7 @@ public class PalManager : MonoBehaviour {
 
     private void Start() {
         fsm = GetComponent<PalFSM>();
-        // UpdateNearbyPals();
+        UpdateNearbyPals();
     }
 
     public void ImpactByItem(ItemID itemID) {

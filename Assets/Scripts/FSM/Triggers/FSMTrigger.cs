@@ -5,7 +5,7 @@ namespace AI.FSM {
     /// </summary>
     public abstract class FSMTrigger {
         public FSMTrigger() {
-            Init();
+            init();
         }
 
         /// <summary>
@@ -17,7 +17,7 @@ namespace AI.FSM {
         /// <summary>
         /// 子类必须初始化TriggerID
         /// </summary>
-        protected abstract void Init();
+        protected abstract void init();
 
         public FSMTriggerID TriggerID { get; set; }
     }

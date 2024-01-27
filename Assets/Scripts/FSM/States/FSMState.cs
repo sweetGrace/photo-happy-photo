@@ -8,7 +8,7 @@ namespace AI.FSM {
     /// </summary>
     public abstract class FSMState {
         public FSMState() {
-            Init();
+            init();
             _map = new Dictionary<FSMTriggerID, FSMStateID>();
             _triggers = new List<FSMTrigger>();
         }
@@ -16,7 +16,7 @@ namespace AI.FSM {
         /// <summary>
         /// 子类必须初始化StateID
         /// </summary>
-        protected abstract void Init();
+        protected abstract void init();
 
         /// <summary>
         /// 为当前状态添加映射，由状态机调用

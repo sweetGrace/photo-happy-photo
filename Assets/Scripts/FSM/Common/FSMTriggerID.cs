@@ -2,6 +2,10 @@ using UnityEngine;
 
 namespace AI.FSM {
     public enum FSMTriggerID {
-        ImpactByItem
+        ImpactByItem,
+        PalStableLaughToCry,
+        PalUnstableLaughToCry,
+        NearbyPalCrying,
+        NoNearbyPalCrying
     }
 }

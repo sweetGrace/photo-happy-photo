@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour {
     private Item leftItem;
     private Item rightItem;
     private float faceDirection;
+    private bool pickedup;
     /*--------------------------------*/
 
     private void Start() {
@@ -39,6 +40,7 @@ public class PlayerController : MonoBehaviour {
 
     private void FixedUpdate() {
         int combo = GameManagerFSM.Instance.combo;
+        pickedup = false;
         HandleMove();
         HandleItemUse();
         HandlePickUp();
@@ -46,7 +48,8 @@ public class PlayerController : MonoBehaviour {
         HandleThrow();
 
         if ((Input.GetButton("Pickup") || Input.GetButton("UseLeft") || Input.GetButton("UseRight")) &&
-            combo == GameManagerFSM.Instance.combo) {
+            combo == GameManagerFSM.Instance.combo &&
+            (Input.GetButtonDown("Pickup") && !pickedup)) {
             GameManagerFSM.Instance.combo = 0;
         }
     }
@@ -85,23 +88,32 @@ public class PlayerController : MonoBehaviour {
     private void HandlePickUp() {
         if (!Input.GetButton("PickUp"))
             return;
-        Item item = Physics.OverlapSphere(transform.position, pickUpRange, LayerMask.GetMask("Item"))
+        Collider collider = Physics.OverlapSphere(transform.position, pickUpRange, LayerMask.GetMask("Item") | LayerMask.GetMask("Pal"))
             .Where(item => item != leftItem && item != rightItem)
             .OrderBy(item => (transform.position - item.transform.position).sqrMagnitude)
-            .First()
-            ?.GetComponent<Item>();
-        if (item == null) {
-            Debug.Log("No item in range");
+            .First();
+        if (collider == null)
+            return;
+
+        Item item = collider.GetComponent<Item>();
+        if (item != null) {
+            if (rightItem != null) {
+                rightItem.Drop();
+                rightItem = null;
+            }
+
+            item.Pick(rightHand);
+            rightItem = item;
+
+            pickedup = true;
             return;
         }
 
-        if (rightItem != null) {
-            rightItem.Drop();
-            rightItem = null;
+        PalManager pal = collider.GetComponent<PalManager>();
+        if (pal != null) {
+            pal.ImpactByItem(ItemID.None);
+            return;
         }
-
-        item.Pick(rightHand);
-        rightItem = item;
     }
 
     private void HandleItemUse() {

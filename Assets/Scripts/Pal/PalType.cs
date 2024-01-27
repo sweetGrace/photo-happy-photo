@@ -4,7 +4,7 @@ public enum PalType {
     Sleepy,
     Pal,
     Baby,
-    Gamboy,
+    Gameboy,
     Mother,
     Father,
     Cat

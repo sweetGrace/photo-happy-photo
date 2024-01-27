@@ -4,5 +4,6 @@ public enum ItemID {
     RattleDrum,
     Switch,
     Money,
-    CatFood
+    CatFood,
+    None
 }

@@ -11,6 +11,7 @@ public class PalManager : MonoBehaviour {
     public float stableToCryProbability;
     [Range(0, 1)]
     public float unstableToCryProbability;
+    public GameObject tip;
 
     public PalFSM fsm { get; private set; }
     public PalManager[] impactPals { get; private set; }

@@ -123,6 +123,7 @@ public class PlayerController : MonoBehaviour {
 
         if (collider.CompareTag("Camera")) {
             collider.GetComponent<AudioSource>()?.Play();
+            GameManagerFSM.Instance.cameraed = true;
             GameManagerFSM.Instance.SetTrigger(AI.FSM.FSMTriggerID.GameEnd);
             return;
         }

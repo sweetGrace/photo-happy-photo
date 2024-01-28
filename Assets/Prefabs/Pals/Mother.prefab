@@ -66,8 +66,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   palType: 4
   impactItemIDs: 00000000
-  impactPalTypes: 02000000
-  impactRange: 0.25
+  impactPalTypes: 06000000
+  impactRange: 4
   stableToCryProbability: 0.005
   unstableToCryProbability: 0.5
   tip: {fileID: 6750683346986824444}

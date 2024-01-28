@@ -80,6 +80,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultStateID: 1
+  animator: {fileID: 0}
 --- !u!114 &1444291944858885854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -99,6 +100,8 @@ MonoBehaviour:
   stableToCryProbability: 0.01
   unstableToCryProbability: 0
   tip: {fileID: 0}
+  cryClip: {fileID: 0}
+  interactClip: {fileID: 0}
 --- !u!212 &8638025333999025813
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -160,7 +163,7 @@ Animator:
   m_GameObject: {fileID: 8670419705778763817}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c27692e56252fcc47ad6e42ae101e605, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

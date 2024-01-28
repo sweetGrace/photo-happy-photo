@@ -85,9 +85,9 @@ public class PlayerController : MonoBehaviour {
     private void HandleThrow() {
         if (!Input.GetButtonDown("Throw"))
             return;
-        if (rightItem == null)
+        if (rightItem == null && leftItem == null)
             return;
-
+        
         float vertical = Input.GetAxis("Vertical");
         Vector3 direction;
         if (Mathf.Approximately(vertical, 0)) {
@@ -98,12 +98,19 @@ public class PlayerController : MonoBehaviour {
             else
                 direction = Vector3.up;
         }
-
-        rightItem.Drop();
-        rightItem.GetComponent<Rigidbody>().AddForce(direction * throwForce, ForceMode.Impulse);
-        if (direction != Vector3.zero)
-            rightItem.GetComponent<Rigidbody>().AddTorque(Vector3.Cross(direction, Vector3.up) * rotateForce, ForceMode.Impulse);
-        rightItem = null;
+        if (rightItem != null) {
+            rightItem.Drop();
+            rightItem.GetComponent<Rigidbody>().AddForce(direction * throwForce, ForceMode.Impulse);
+            if (direction != Vector3.zero)
+                rightItem.GetComponent<Rigidbody>().AddTorque(Vector3.Cross(direction, Vector3.up) * rotateForce, ForceMode.Impulse);
+            rightItem = null;
+        } else {
+            leftItem.Drop();
+            leftItem.GetComponent<Rigidbody>().AddForce(direction * throwForce, ForceMode.Impulse);
+            if (direction != Vector3.zero)
+                leftItem.GetComponent<Rigidbody>().AddTorque(Vector3.Cross(direction, Vector3.up) * rotateForce, ForceMode.Impulse);
+            leftItem = null;
+        }
     }
 
     private void HandleSwap() {

@@ -35,14 +35,14 @@ public class Tips : MonoBehaviour, IUIState
         
         DOTween.To(() => timeCount, a => timeCount = a, 1, endt).OnComplete(() =>
         {
-            transform.gameObject.SetActive(false);
+            gameObject.SetActive(false);
         });
     }
 
     public void OnShow()
     {
         if (seq != null) seq.Kill();
-        transform.gameObject.SetActive(true);
+        gameObject.SetActive(true);
         transform.position = new Vector3(x, y, -0.1f);
         transform.localScale = new Vector3(transform.localScale.x * direction, transform.localScale.y, transform.localScale.z);
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, 30 * direction));

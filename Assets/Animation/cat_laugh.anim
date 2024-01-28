@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: gameboy_bored
+  m_Name: cat_laugh
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -20,11 +20,7 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 21300000, guid: 20ffb43c5c3528d4db5b8084b615490f, type: 3}
-    - time: 0.26666668
-      value: {fileID: 21300000, guid: ad720fb070f59774b8f34537e78fa362, type: 3}
-    - time: 0.53333336
-      value: {fileID: 21300000, guid: ad720fb070f59774b8f34537e78fa362, type: 3}
+      value: {fileID: 21300000, guid: a318234a34d4166488a8a1e92767db69, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -44,15 +40,13 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 21300000, guid: 20ffb43c5c3528d4db5b8084b615490f, type: 3}
-    - {fileID: 21300000, guid: ad720fb070f59774b8f34537e78fa362, type: 3}
-    - {fileID: 21300000, guid: ad720fb070f59774b8f34537e78fa362, type: 3}
+    - {fileID: 21300000, guid: a318234a34d4166488a8a1e92767db69, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.55
+    m_StopTime: 0.016666668
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0

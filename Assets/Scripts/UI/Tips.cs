@@ -8,10 +8,6 @@ using System.Threading;
 
 public class Tips : MonoBehaviour, IUIState
 {
-    [Header("原始x")]
-    public int x = 0;
-    [Header("原始y")]
-    public float y = 0;
     [Header("弹出方向（1为右上，-1为左上）")]
     public int direction = 1;
     [Header("x弹出距离")]
@@ -43,7 +39,7 @@ public class Tips : MonoBehaviour, IUIState
     {
         if (seq != null) seq.Kill();
         gameObject.SetActive(true);
-        transform.position = new Vector3(x, y, -0.1f);
+        transform.position = new Vector3(transform.position.x, transform.position.y, -6f);
         transform.localScale = new Vector3(transform.localScale.x * direction, transform.localScale.y, transform.localScale.z);
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, 30 * direction));
         if (direction == -1)

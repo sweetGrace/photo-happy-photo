@@ -12,8 +12,8 @@ public class StartMenuManager : MonoBehaviour {
 
     public void StartGame() {
         audioSource.Play();
-        leftCurtain.transform.DOMoveX(leftCurtain.transform.position.x - curtainMoveDistance, duration);
-        rightCurtain.transform.DOMoveX(rightCurtain.transform.position.x + curtainMoveDistance, duration).OnComplete(() => {
+        leftCurtain.transform.DOMoveX(leftCurtain.transform.position.x - curtainMoveDistance, duration).SetUpdate(true);
+        rightCurtain.transform.DOMoveX(rightCurtain.transform.position.x + curtainMoveDistance, duration).SetUpdate(true).OnComplete(() => {
             GameManagerFSM.Instance.SetTrigger(AI.FSM.FSMTriggerID.GameStart);
             Destroy(this.gameObject);
         });

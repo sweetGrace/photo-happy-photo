@@ -1,84 +1,73 @@
-Shader "Hbh Shader/Stencil Outline Shading"
+Shader "lcl/shader2D/outline"
 {
     Properties
     {
-        _Outline ("Outline Width", Range(0, 1)) = 0.1
-        _OutlineColor ("Outline Color", Color) = (0, 0, 0, 1)
+        _MainTex ("Texture", 2D) = "white" {}
+        _lineWidth("lineWidth",Range(0,100)) = 1
+        _lineColor("lineColor",Color)=(1,1,1,1)
     }
+    // ---------------------------【子着色器】---------------------------
     SubShader
     {
-        Pass
-        {
-            Stencil
-            {
-                Ref 1
-                Comp Always
-                Pass Replace
-            }
-
-            CGPROGRAM
-
-            #pragma vertex vert
-            #pragma fragment frag
-
-            float4 vert (float4 v : POSITION) : SV_POSITION
-            {
-                return UnityObjectToClipPos(v);
-            }
-
-            float4 frag() : SV_Target
-            {
-                return float4(1, 1, 1, 1);
-            }
-
-            ENDCG
+        // 渲染队列采用 透明
+        Tags{
+            "Queue" = "Transparent"
         }
+        Blend SrcAlpha OneMinusSrcAlpha
 
         Pass
         {
-            Stencil
-            {
-                Ref 1
-                Comp NotEqual
-            }
-
             CGPROGRAM
-
             #pragma vertex vert
             #pragma fragment frag
 
-            float _Outline;
-            fixed4 _OutlineColor;
-
-            struct a2v
+            #include "UnityCG.cginc"
+            //顶点着色器输入结构体
+            struct VertexInput
             {
                 float4 vertex : POSITION;
-                float3 normal : NORMAL;
+                float2 uv : TEXCOORD0;
+            };
+            //顶点着色器输出结构体
+            struct VertexOutput
+            {
+                float2 uv : TEXCOORD0;
+                float4 vertex : SV_POSITION;
             };
 
-            struct v2f
+            // ---------------------------【顶点着色器】---------------------------
+            VertexOutput vert (VertexInput v)
             {
-                float4 pos : SV_POSITION;
-            };
-
-            v2f vert (a2v v)
-            {
-                v2f o;
-
-                float4 pos = mul(UNITY_MATRIX_MV, v.vertex);
-                float3 normal = mul((float3x3)UNITY_MATRIX_IT_MV, v.normal);
-                normal.z = -0.5;
-                pos = pos + float4(normalize(normal), 0) * _Outline;
-                o.pos = mul(UNITY_MATRIX_P, pos);
-
+                VertexOutput o;
+                o.vertex = UnityObjectToClipPos(v.vertex);
+                o.uv = v.uv;
                 return o;
             }
 
-            float4 frag(v2f i) : SV_Target
-            {
-                return float4(_OutlineColor.rgb, 1);
-            }
+            sampler2D _MainTex;
+            float4 _MainTex_TexelSize;
+            float _lineWidth;
+            float4 _lineColor;
 
+            // ---------------------------【片元着色器】---------------------------
+            fixed4 frag (VertexOutput i) : SV_Target
+            {
+                fixed4 col = tex2D(_MainTex, i.uv);
+                // 采样周围4个点
+                float2 up_uv = i.uv + float2(0,1) * _lineWidth * _MainTex_TexelSize.xy;
+                float2 down_uv = i.uv + float2(0,-1) * _lineWidth * _MainTex_TexelSize.xy;
+                float2 left_uv = i.uv + float2(-1,0) * _lineWidth * _MainTex_TexelSize.xy;
+                float2 right_uv = i.uv + float2(1,0) * _lineWidth * _MainTex_TexelSize.xy;
+                // 如果有一个点透明度为0 说明是边缘
+                float w = tex2D(_MainTex,up_uv).a * tex2D(_MainTex,down_uv).a * tex2D(_MainTex,left_uv).a * tex2D(_MainTex,right_uv).a;
+
+                // if(w == 0){
+                    //    col.rgb = _lineColor;
+                // }
+                // 和原图做插值
+                col.rgb = lerp(_lineColor,col.rgb,w);
+                return col;
+            }
             ENDCG
         }
     }

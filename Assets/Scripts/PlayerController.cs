@@ -89,7 +89,7 @@ public class PlayerController : MonoBehaviour {
     private void HandlePickUp() {
         if (!Input.GetButton("PickUp"))
             return;
-        Collider collider = Physics.OverlapSphere(transform.position, pickUpRange, LayerMask.GetMask("Item") | LayerMask.GetMask("Pal"))
+        Collider collider = Physics.OverlapSphere(transform.position, pickUpRange, LayerMask.GetMask("Item") | LayerMask.GetMask("Pal") | LayerMask.GetMask("Camera"))
             .Where(item => item != leftItem && item != rightItem)
             .OrderBy(item => (transform.position - item.transform.position).sqrMagnitude)
             .First();

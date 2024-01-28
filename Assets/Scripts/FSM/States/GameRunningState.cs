@@ -31,7 +31,6 @@ namespace AI.FSM {
             GameManagerFSM gameManagerFSM = fsm as GameManagerFSM;
 
             gameManagerFSM.gameEndUI.SetActive(true);
-            Time.timeScale = 0;
         }
     }
 }

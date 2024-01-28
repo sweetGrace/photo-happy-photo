@@ -5,5 +5,9 @@ namespace AI.FSM {
         protected override void init() {
             StateID = FSMStateID.GameEnd;
         }
+
+        public override void OnStateEnter(FSMBase fsm) {
+            Time.timeScale = 0;
+        }
     }
 }

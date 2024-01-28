@@ -1,5 +1,6 @@
 using UnityEngine;
 using AI.FSM;
+using System.Linq;
 
 public class GameManagerFSM : FSMBase {
     public static GameManagerFSM Instance { get; private set; } = null;
@@ -7,10 +8,15 @@ public class GameManagerFSM : FSMBase {
     [Range(0, 600f), Tooltip("Unit: seconds"), Header("Game Settings")]
     public float GameTime;
     public int basicScore;
+    public int happyScore;
     [Header("Audio")]
     public AudioSource audioSource;
     public AudioClip comboClip;
     public AudioClip scoreClip;
+    [Header("UI")]
+    public GameObject gameEndUI;
+
+    public bool cameraed { get; set; } = false;
     [HideInInspector]
     public float restTime;
     private int _score;
@@ -58,5 +64,13 @@ public class GameManagerFSM : FSMBase {
         GameRunningState gameRunningState = new GameRunningState();
         gameRunningState.AddMap(FSMTriggerID.GameEnd, FSMStateID.GameEnd);
         _states.Add(gameRunningState);
+    }
+
+    public int GetFinalScore() {
+        if (!cameraed)
+            return _score;
+        int cnt = GameObject.FindGameObjectsWithTag("Pal")
+            .Count(obj => obj.GetComponent<PalFSM>().CurrentState != FSMStateID.PalCry);
+        return _score + cnt * happyScore;
     }
 }

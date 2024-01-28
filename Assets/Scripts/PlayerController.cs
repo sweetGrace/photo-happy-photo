@@ -10,13 +10,16 @@ public class PlayerController : MonoBehaviour {
     [Header("Items")]
     public Transform leftHand;
     public Transform rightHand;
+    public Transform foot;
     [Header("PickUp")]
     public float pickUpRange;
-    public Vector3 pickUpOffset;
     [Header("Throw")]
     public float throwForce;
     public float throwAngle;
     public float rotateForce;
+    [Header("Steps")]
+    public float detectDistance;
+    public float maxStepHeight;
     [Header("Debug")]
     public bool drawPickupRange;
     /*--------------------------------*/
@@ -103,7 +106,7 @@ public class PlayerController : MonoBehaviour {
     private void HandlePickUp() {
         if (!Input.GetButtonDown("PickUp"))
             return;
-        Vector3 center = transform.position + pickUpOffset;
+        Vector3 center = foot.position;
         var temp = Physics.OverlapSphere(center, pickUpRange, LayerMask.GetMask("Item") | LayerMask.GetMask("Pal") | LayerMask.GetMask("Camera"))
             .Where(item => item != leftItem && item != rightItem)
             .OrderBy(item => (center - item.transform.position).sqrMagnitude);
@@ -171,12 +174,20 @@ public class PlayerController : MonoBehaviour {
         float y_speed = rb.velocity.y;
         rb.velocity = direction * speed;
         rb.velocity = new Vector3(rb.velocity.x, y_speed, rb.velocity.z);
+
+        RaycastHit hit;
+        if (Physics.Raycast(foot.position, direction, out hit, detectDistance, LayerMask.GetMask("Ground"))) {
+            Debug.Log("Step detected");
+            if (hit.transform.lossyScale.y <= maxStepHeight) {
+                rb.position += Vector3.up * hit.transform.lossyScale.y;
+            }
+        }
     }
 
     private void OnDrawGizmos() {
         if (drawPickupRange) {
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position + pickUpOffset, pickUpRange);
+            Gizmos.DrawWireSphere(foot.position, pickUpRange);
         }
     }
 }

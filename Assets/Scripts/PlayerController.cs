@@ -139,8 +139,15 @@ public class PlayerController : MonoBehaviour {
         if (item != null) {
             Debug.Log("Found item");
             if (rightItem != null) {
-                rightItem.Drop();
-                rightItem = null;
+                if (leftItem != null) {
+                    rightItem.Drop();
+                    rightItem = null;
+                } else {
+                    item.Pick(leftHand);
+                    leftItem = item;
+                    pickedup = true;
+                    return;
+                }
             }
 
             item.Pick(rightHand);

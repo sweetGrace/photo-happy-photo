@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour {
     [Header("Physics")]
     public Vector3 forward;
     private Vector3 right;
-    public float speed;
+    public Vector2 speed;
     [Header("Items")]
     public Transform leftHand;
     public Transform rightHand;
@@ -189,8 +189,7 @@ public class PlayerController : MonoBehaviour {
             direction = Vector3.zero;
         }
         float y_speed = rb.velocity.y;
-        rb.velocity = direction * speed;
-        rb.velocity = new Vector3(rb.velocity.x, y_speed, rb.velocity.z);
+        rb.velocity = new Vector3(direction.x * speed.x, y_speed, direction.z * speed.y);
 
         RaycastHit hit;
         if (Physics.Raycast(foot.position, direction, out hit, detectDistance, LayerMask.GetMask("Ground"))) {

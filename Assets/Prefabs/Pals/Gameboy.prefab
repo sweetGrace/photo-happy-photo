@@ -51,7 +51,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultStateID: 1
   animator: {fileID: 493021475688828173}
-  startCryProbability: 0.12
+  startCryProbability: 0.2
 --- !u!114 &1444291944858885854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68,7 +68,7 @@ MonoBehaviour:
   impactItemIDs: 01000000
   impactPalTypes: 
   impactRange: 2
-  stableToCryProbability: 0.01
+  stableToCryProbability: 0.02
   unstableToCryProbability: 0
   tip: {fileID: 8563560289380963936}
   cryClip: {fileID: 8300000, guid: 1cf930d926923d341b15b506f0005df6, type: 3}

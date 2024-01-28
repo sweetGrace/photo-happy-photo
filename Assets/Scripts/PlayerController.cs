@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour {
     public float throwForce;
     public float throwAngle;
     public float rotateForce;
+    [Header("Debug")]
+    public bool drawPickupRange;
     /*--------------------------------*/
 
     /************Components************/
@@ -169,5 +171,12 @@ public class PlayerController : MonoBehaviour {
         float y_speed = rb.velocity.y;
         rb.velocity = direction * speed;
         rb.velocity = new Vector3(rb.velocity.x, y_speed, rb.velocity.z);
+    }
+
+    private void OnDrawGizmos() {
+        if (drawPickupRange) {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position + pickUpOffset, pickUpRange);
+        }
     }
 }

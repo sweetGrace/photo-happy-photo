@@ -3,6 +3,7 @@ using System.Linq;
 using UnityEngine;
 
 public class PalManager : MonoBehaviour {
+    [Header("Properties")]
     public PalType palType;
     public ItemID[] impactItemIDs;
     public PalType[] impactPalTypes;
@@ -16,6 +17,8 @@ public class PalManager : MonoBehaviour {
     public AudioClip cryClip;
     public AudioClip interactClip;
     private AudioSource audioSource;
+    [Header("Debug")]
+    public bool drawImpactRange;
 
     public PalFSM fsm { get; private set; }
     public PalManager[] impactPals { get; private set; }
@@ -50,5 +53,12 @@ public class PalManager : MonoBehaviour {
             .Select(collider => collider.GetComponent<PalManager>())
             .Where(manager => manager != null && impactPalTypes.Contains(manager.palType))
             .ToArray();
+    }
+
+    private void OnDrawGizmos() {
+        if (drawImpactRange) {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(transform.position, impactRange);
+        }
     }
 }

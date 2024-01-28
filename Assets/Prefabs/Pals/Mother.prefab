@@ -64,7 +64,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   palType: 4
-  impactItemIDs: 04000000
+  impactItemIDs: 00000000
   impactPalTypes: 02000000
   impactRange: 0.25
   stableToCryProbability: 0.01

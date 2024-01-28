@@ -80,6 +80,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultStateID: 1
+  animator: {fileID: 2339327891775486765}
 --- !u!114 &1294167810206685271
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -99,6 +100,8 @@ MonoBehaviour:
   stableToCryProbability: 0.01
   unstableToCryProbability: 0
   tip: {fileID: 0}
+  cryClip: {fileID: 8300000, guid: f1371092670a44340a1b3b13d5d1bd95, type: 3}
+  interactClip: {fileID: 8300000, guid: 17a5dd3e8d80192459c1545aea9809f5, type: 3}
 --- !u!212 &1418839193182519078
 SpriteRenderer:
   m_ObjectHideFlags: 0

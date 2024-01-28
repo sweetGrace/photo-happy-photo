@@ -68,8 +68,8 @@ MonoBehaviour:
   impactItemIDs: 00000000
   impactPalTypes: 06000000
   impactRange: 4
-  stableToCryProbability: 0.005
-  unstableToCryProbability: 0.5
+  stableToCryProbability: 0.004
+  unstableToCryProbability: 0.2
   tip: {fileID: 6750683346986824444}
   cryClip: {fileID: 8300000, guid: 82cace3f3579259498282167ca60eee1, type: 3}
   interactClip: {fileID: 8300000, guid: b2991f975ce5c314f96fa29f18e01c87, type: 3}

@@ -48,7 +48,7 @@ public class GameManagerFSM : FSMBase {
         get {
             if (Combo < 3)
                 return 1f;
-            return 1f + (Combo - 2) * 0.5f;
+            return 1f + (Combo - 2) * 1f;
         }
     }
 

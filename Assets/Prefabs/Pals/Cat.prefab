@@ -70,7 +70,7 @@ MonoBehaviour:
   impactRange: 2
   stableToCryProbability: 0.004
   unstableToCryProbability: 0
-  tip: {fileID: 0}
+  tip: {fileID: 8369017141602016493}
   cryClip: {fileID: 8300000, guid: 2c6f7f35ff919b847a95f891b50666af, type: 3}
   interactClip: {fileID: 8300000, guid: b2991f975ce5c314f96fa29f18e01c87, type: 3}
   drawImpactRange: 0
@@ -386,6 +386,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ebabcadf5cd3a4043b03cf7b7663c361, type: 3}
+--- !u!1 &8369017141602016493 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1776386720870789564, guid: ebabcadf5cd3a4043b03cf7b7663c361, type: 3}
+  m_PrefabInstance: {fileID: 7818889900973796689}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &8369017141602016489 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1776386720870789560, guid: ebabcadf5cd3a4043b03cf7b7663c361, type: 3}

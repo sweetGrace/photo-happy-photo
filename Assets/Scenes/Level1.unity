@@ -4407,6 +4407,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8369017141602016470, guid: bdbd17626df9a2d4e88d4fa9323bfd42, type: 3}
+      propertyPath: direction
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8369017141602016489, guid: bdbd17626df9a2d4e88d4fa9323bfd42, type: 3}
+      propertyPath: m_LocalScale.x
+      value: -0.002199992
+      objectReference: {fileID: 0}
+    - target: {fileID: 8369017141602016493, guid: bdbd17626df9a2d4e88d4fa9323bfd42, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bdbd17626df9a2d4e88d4fa9323bfd42, type: 3}
 --- !u!114 &1886885840 stripped
@@ -4670,7 +4682,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2016102556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5197,7 +5209,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4244787080316532086, guid: 3c741c7f6dc74f24aad875fb95ff6e0f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c741c7f6dc74f24aad875fb95ff6e0f, type: 3}

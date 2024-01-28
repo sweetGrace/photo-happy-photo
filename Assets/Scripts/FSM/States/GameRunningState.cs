@@ -16,6 +16,9 @@ namespace AI.FSM {
             gameManagerFSM.restTime = gameManagerFSM.GameTime;
             gameManagerFSM.Score = 0;
             gameManagerFSM.Combo = 0;
+            gameManagerFSM.cameraed = false;
+
+            Time.timeScale = 1;
         }
 
         public override void OnStateStay(FSMBase fsm) {
@@ -25,7 +28,10 @@ namespace AI.FSM {
         }
 
         public override void OnStateExit(FSMBase fsm) {
-            // todo: show game end UI
+            GameManagerFSM gameManagerFSM = fsm as GameManagerFSM;
+
+            gameManagerFSM.gameEndUI.SetActive(true);
+            Time.timeScale = 0;
         }
     }
 }

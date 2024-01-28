@@ -9,7 +9,8 @@ namespace AI.FSM {
             fsm.animator.SetTrigger("cry");
 
             PalManager manager = fsm.GetComponent<PalManager>();
-            manager.tip.GetComponent<Tips>().OnShow();
+            if(manager.tip!=null)
+                manager.tip.GetComponent<Tips>().OnShow();
             manager.PlayCryClip();
         }
         public override void OnStateExit(FSMBase fsm) {

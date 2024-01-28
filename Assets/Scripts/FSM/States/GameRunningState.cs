@@ -14,8 +14,8 @@ namespace AI.FSM {
             }
 
             gameManagerFSM.restTime = gameManagerFSM.GameTime;
-            gameManagerFSM.score = 0;
-            gameManagerFSM.combo = 0;
+            gameManagerFSM.Score = 0;
+            gameManagerFSM.Combo = 0;
         }
 
         public override void OnStateStay(FSMBase fsm) {

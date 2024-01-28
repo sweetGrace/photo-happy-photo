@@ -4,20 +4,38 @@ using AI.FSM;
 public class GameManagerFSM : FSMBase {
     public static GameManagerFSM Instance { get; private set; } = null;
 
-    [Range(0, 600f), Tooltip("Unit: seconds")]
+    [Range(0, 600f), Tooltip("Unit: seconds"), Header("Game Settings")]
     public float GameTime;
+    public int basicScore;
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip comboClip;
+    public AudioClip scoreClip;
     [HideInInspector]
     public float restTime;
-    public int basicScore;
-    [HideInInspector]
-    public int score;
-    [HideInInspector]
-    public int combo;
+    private int _score;
+    public int Score {
+        get { return _score; }
+        set {
+            if (value > _score && audioSource != null && scoreClip != null)
+                audioSource.PlayOneShot(scoreClip);
+            _score = value;
+        }
+    }
+    private int _combo;
+    public int Combo {
+        get { return _combo; }
+        set {
+            if (value > _combo && audioSource != null && comboClip != null)
+                audioSource.PlayOneShot(comboClip);
+            _combo = value;
+        }
+    }
     public float comboMultiplier {
         get {
-            if (combo < 3)
+            if (Combo < 3)
                 return 1f;
-            return 1f + (combo - 2) * 0.5f;
+            return 1f + (Combo - 2) * 0.5f;
         }
     }
 

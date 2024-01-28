@@ -66,5 +66,6 @@ namespace AI.FSM {
                 return _currentState.StateID;
             }
         }
+        public Animator animator;
     }
 }

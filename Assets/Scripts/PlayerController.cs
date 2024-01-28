@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void FixedUpdate() {
-        int combo = GameManagerFSM.Instance.combo;
+        int combo = GameManagerFSM.Instance.Combo;
         pickedup = false;
         HandleMove();
         HandleItemUse();
@@ -47,10 +47,11 @@ public class PlayerController : MonoBehaviour {
         HandleSwap();
         HandleThrow();
 
-        if ((Input.GetButton("Pickup") || Input.GetButton("UseLeft") || Input.GetButton("UseRight")) &&
-            combo == GameManagerFSM.Instance.combo &&
-            (Input.GetButtonDown("Pickup") && !pickedup)) {
-            GameManagerFSM.Instance.combo = 0;
+        if ((Input.GetButton("UseLeft") || Input.GetButton("UseRight")) &&
+            combo == GameManagerFSM.Instance.Combo) {
+            GameManagerFSM.Instance.Combo = 0;
+        } else if (Input.GetButton("PickUp") && !pickedup && combo == GameManagerFSM.Instance.Combo) {
+            GameManagerFSM.Instance.Combo = 0;
         }
     }
 
@@ -112,6 +113,12 @@ public class PlayerController : MonoBehaviour {
         PalManager pal = collider.GetComponent<PalManager>();
         if (pal != null) {
             pal.ImpactByItem(ItemID.None);
+            return;
+        }
+
+        if (collider.CompareTag("Camera")) {
+            collider.GetComponent<AudioSource>()?.Play();
+            GameManagerFSM.Instance.SetTrigger(AI.FSM.FSMTriggerID.GameEnd);
             return;
         }
     }

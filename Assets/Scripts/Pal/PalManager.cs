@@ -12,17 +12,34 @@ public class PalManager : MonoBehaviour {
     [Range(0, 1)]
     public float unstableToCryProbability;
     public GameObject tip;
+    [Header("Audio")]
+    public AudioClip cryClip;
+    public AudioClip interactClip;
+    private AudioSource audioSource;
 
     public PalFSM fsm { get; private set; }
     public PalManager[] impactPals { get; private set; }
 
     private void Start() {
         fsm = GetComponent<PalFSM>();
+        audioSource = GetComponent<AudioSource>();
+
         UpdateNearbyPals();
+    }
+
+    public void PlayCryClip() {
+        if (cryClip != null && audioSource != null)
+            audioSource.PlayOneShot(cryClip);
+    }
+
+    public void PlayInteractClip() {
+        if (interactClip != null && audioSource != null)
+            audioSource.PlayOneShot(interactClip);
     }
 
     public void ImpactByItem(ItemID itemID) {
         if (impactItemIDs.Contains(itemID)) {
+            PlayInteractClip();
             fsm.SetTrigger(FSMTriggerID.ImpactByItem);
         }
     }

@@ -6,12 +6,20 @@ namespace AI.FSM {
             StateID = FSMStateID.PalCry;
         }
         public override void OnStateEnter(FSMBase fsm) {
-            fsm.GetComponent<PalManager>().tip.GetComponent<Tips>().OnShow();
+            fsm.animator.SetTrigger("cry");
+
+            PalManager manager = fsm.GetComponent<PalManager>();
+            manager.tip.GetComponent<Tips>().OnShow();
+            manager.PlayCryClip();
         }
         public override void OnStateExit(FSMBase fsm) {
-            GameManagerFSM.Instance.combo++;
-            GameManagerFSM.Instance.score += (int)(GameManagerFSM.Instance.basicScore * GameManagerFSM.Instance.comboMultiplier);
-            fsm.GetComponent<PalManager>().tip.GetComponent<Tips>().OnHide();
+            fsm.animator.SetTrigger("laugh");
+
+            GameManagerFSM.Instance.Combo++;
+            GameManagerFSM.Instance.Score += (int)(GameManagerFSM.Instance.basicScore * GameManagerFSM.Instance.comboMultiplier);
+            PalManager manager = fsm.GetComponent<PalManager>();
+            manager.tip.GetComponent<Tips>().OnHide();
+            manager.PlayInteractClip();
         }
     }
 

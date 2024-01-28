@@ -62,7 +62,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab2441fe62bc9f7439c8fa2a91ca377d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  impactRange: 3
+  impactRange: 5
   id: 2
   drawImpactRange: 0
 --- !u!212 &-6238569926615552616

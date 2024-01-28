@@ -62,9 +62,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab2441fe62bc9f7439c8fa2a91ca377d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  impactRange: 3
+  impactRange: 5
   id: 1
-  drawImpactRange: 0
+  drawImpactRange: 1
 --- !u!212 &6734640560031328552
 SpriteRenderer:
   m_ObjectHideFlags: 0

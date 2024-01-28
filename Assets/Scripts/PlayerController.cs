@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour {
 
     /************Components************/
     private Rigidbody rb;
+    private Animator animator;
     /*--------------------------------*/
 
     /************Variables************/
@@ -33,6 +34,7 @@ public class PlayerController : MonoBehaviour {
         right = -Vector3.Cross(forward, Vector3.up).normalized;
 
         rb = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
 
         leftItem = rightItem = null;
         faceDirection = 1;
@@ -53,6 +55,9 @@ public class PlayerController : MonoBehaviour {
         } else if (Input.GetButton("PickUp") && !pickedup && combo == GameManagerFSM.Instance.Combo) {
             GameManagerFSM.Instance.Combo = 0;
         }
+
+        animator.SetFloat("XSpeed", Input.GetAxis("Horizontal"));
+        animator.SetFloat("YSpeed", Input.GetAxis("Vertical"));
     }
 
     private void HandleThrow() {

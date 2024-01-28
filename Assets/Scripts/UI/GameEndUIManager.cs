@@ -3,9 +3,11 @@ using UnityEngine.UI;
 
 public class GameEndUIManager : MonoBehaviour {
     public Text scoreText;
+    public RawImage rawImage;
 
-    public void Start() {
+    public void OnEnable() {
         scoreText.text = GameManagerFSM.Instance.GetFinalScore().ToString();
+        rawImage.color = GameManagerFSM.Instance.cameraed ? Color.white : Color.black;
     }
 
     public void Restart() {

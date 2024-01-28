@@ -112,7 +112,9 @@ public class PlayerController : MonoBehaviour {
         Vector3 center = foot.position;
         var temp = Physics.OverlapSphere(center, pickUpRange, LayerMask.GetMask("Item") | LayerMask.GetMask("Pal") | LayerMask.GetMask("Camera"))
             .Where(item => item != leftItem && item != rightItem)
-            .OrderBy(item => (center - item.transform.position).sqrMagnitude);
+            .OrderBy(item => (
+                new Vector2(center.x, center.z) - new Vector2(item.transform.position.x, item.transform.position.z)
+            ).sqrMagnitude);
 
         if (temp.Count() == 0) {
             Debug.Log("Nothing in pick up range");
@@ -138,7 +140,7 @@ public class PlayerController : MonoBehaviour {
 
         PalManager pal = collider.GetComponent<PalManager>();
         if (pal != null) {
-            Debug.Log("Found pal");
+            Debug.Log("Found pal " + pal.name);
             pal.ImpactByItem(ItemID.None);
             return;
         }

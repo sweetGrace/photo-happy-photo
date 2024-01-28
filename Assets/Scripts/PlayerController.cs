@@ -195,8 +195,8 @@ public class PlayerController : MonoBehaviour {
         RaycastHit hit;
         if (Physics.Raycast(foot.position, direction, out hit, detectDistance, LayerMask.GetMask("Ground"))) {
             Debug.Log("Step detected");
-            if (hit.transform.lossyScale.y <= maxStepHeight) {
-                rb.position += Vector3.up * (hit.transform.lossyScale.y + extraHeight);
+            if (hit.collider.bounds.size.y <= maxStepHeight) {
+                rb.position += Vector3.up * (hit.collider.bounds.size.y + extraHeight);
             }
         }
     }

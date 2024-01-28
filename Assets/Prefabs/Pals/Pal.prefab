@@ -71,6 +71,7 @@ MonoBehaviour:
   tip: {fileID: 0}
   cryClip: {fileID: 8300000, guid: 78c66334d910db042bc785873e10b462, type: 3}
   interactClip: {fileID: 8300000, guid: 3aa671e6cbd0c484a8e17f4a2b57ea04, type: 3}
+  drawImpactRange: 0
 --- !u!212 &8290669695288515014
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -152,8 +153,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 8, y: 25, z: 0.2}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 7.2096844, y: 25, z: 0.2}
+  m_Center: {x: -0.04805565, y: 0, z: 0}
 --- !u!82 &9008922881799962988
 AudioSource:
   m_ObjectHideFlags: 0

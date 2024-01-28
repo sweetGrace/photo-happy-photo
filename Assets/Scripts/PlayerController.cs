@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour {
     [Header("Steps")]
     public float detectDistance;
     public float maxStepHeight;
+    public float extraHeight;
     [Header("Debug")]
     public bool drawPickupRange;
     /*--------------------------------*/
@@ -184,7 +185,7 @@ public class PlayerController : MonoBehaviour {
         if (Physics.Raycast(foot.position, direction, out hit, detectDistance, LayerMask.GetMask("Ground"))) {
             Debug.Log("Step detected");
             if (hit.transform.lossyScale.y <= maxStepHeight) {
-                rb.position += Vector3.up * hit.transform.lossyScale.y;
+                rb.position += Vector3.up * (hit.transform.lossyScale.y + extraHeight);
             }
         }
     }

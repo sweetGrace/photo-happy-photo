@@ -78,6 +78,7 @@ public class GameManagerFSM : FSMBase {
             return _score;
         int cnt = GameObject.FindGameObjectsWithTag("Pal")
             .Count(obj => obj.GetComponent<PalFSM>().CurrentState != FSMStateID.PalCry);
-        return _score + cnt * happyScore + basicScore;
+        // Debug.Log(_score + ", " + cnt + ", " + happyScore + ", " + basicScore);
+        return _score + cnt * happyScore + photoBasicScore;
     }
 }

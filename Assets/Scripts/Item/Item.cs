@@ -7,7 +7,7 @@ public class Item : MonoBehaviour {
     public bool drawImpactRange;
 
     public void Use(PlayerController player) {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, impactRange, LayerMask.GetMask("Pal"));
+        Collider[] colliders = Physics.OverlapSphere(player.transform.position, impactRange, LayerMask.GetMask("Pal"));
         foreach (Collider collider in colliders) {
             PalManager pal = collider.GetComponent<PalManager>();
             pal?.ImpactByItem(id);

@@ -165,8 +165,9 @@ MonoBehaviour:
   throwForce: 5
   throwAngle: 30
   rotateForce: 0
-  detectDistance: 0.1
+  detectDistance: 0.5
   maxStepHeight: 4
+  extraHeight: 0
   drawPickupRange: 0
 --- !u!212 &113032465353832545
 SpriteRenderer:
@@ -249,5 +250,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 6, y: 24, z: 0.2}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 5.6653895, y: 23.36339, z: 0.94029367}
+  m_Center: {x: -0.00026106834, y: 0.013392448, z: -0.06387484}

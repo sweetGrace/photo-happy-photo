@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour {
     [Header("Steps")]
     public float detectDistance;
     public float maxStepHeight;
+    public float extraHeight;
     [Header("Debug")]
     public bool drawPickupRange;
     /*--------------------------------*/
@@ -101,6 +102,9 @@ public class PlayerController : MonoBehaviour {
         rightItem?.Drop();
         leftItem?.Pick(rightHand);
         rightItem?.Pick(leftHand);
+        Item temp = leftItem;
+        leftItem = rightItem;
+        rightItem = temp;
     }
 
     private void HandlePickUp() {
@@ -109,7 +113,9 @@ public class PlayerController : MonoBehaviour {
         Vector3 center = foot.position;
         var temp = Physics.OverlapSphere(center, pickUpRange, LayerMask.GetMask("Item") | LayerMask.GetMask("Pal") | LayerMask.GetMask("Camera"))
             .Where(item => item != leftItem && item != rightItem)
-            .OrderBy(item => (center - item.transform.position).sqrMagnitude);
+            .OrderBy(item => (
+                new Vector2(center.x, center.z) - new Vector2(item.transform.position.x, item.transform.position.z)
+            ).sqrMagnitude);
 
         if (temp.Count() == 0) {
             Debug.Log("Nothing in pick up range");
@@ -135,7 +141,7 @@ public class PlayerController : MonoBehaviour {
 
         PalManager pal = collider.GetComponent<PalManager>();
         if (pal != null) {
-            Debug.Log("Found pal");
+            Debug.Log("Found pal " + pal.name);
             pal.ImpactByItem(ItemID.None);
             return;
         }
@@ -179,7 +185,7 @@ public class PlayerController : MonoBehaviour {
         if (Physics.Raycast(foot.position, direction, out hit, detectDistance, LayerMask.GetMask("Ground"))) {
             Debug.Log("Step detected");
             if (hit.transform.lossyScale.y <= maxStepHeight) {
-                rb.position += Vector3.up * hit.transform.lossyScale.y;
+                rb.position += Vector3.up * (hit.transform.lossyScale.y + extraHeight);
             }
         }
     }

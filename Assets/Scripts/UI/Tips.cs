@@ -25,12 +25,12 @@ public class Tips : MonoBehaviour, IUIState
     public float processangle = 30;
     Sequence seq;
     public Transform parent;
+    private float x, y;
     public void OnHide()
     {
-        // transform.GetComponent<Image>().CrossFadeAlpha(0, endt, true);
         transform.GetChild(0).GetComponent<Image>().CrossFadeAlpha(0, endt, true);
         float timeCount = 0;
-        
+        transform.position = new Vector3(transform.position.x, transform.position.y, parent.position.z - 0.1f) - new Vector3(direction * disx, disy, 0);
         DOTween.To(() => timeCount, a => timeCount = a, 1, endt).OnComplete(() =>
         {
             gameObject.SetActive(false);
@@ -39,13 +39,17 @@ public class Tips : MonoBehaviour, IUIState
 
     public void OnShow()
     {
-        transform.position = new Vector3(transform.position.x, transform.position.y, parent.position.z);
+        transform.position = new Vector3(transform.position.x, transform.position.y, parent.position.z - 0.1f);
         if (seq != null) seq.Kill();
         gameObject.SetActive(true);
         transform.localScale = new Vector3(transform.localScale.x * direction, transform.localScale.y, transform.localScale.z);
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, 30 * direction));
         if (direction == -1)
-            transform.GetChild(0).GetChild(0).localScale = new Vector3(direction, 1, 1);
+        {
+            Transform child = transform.GetChild(0).GetChild(0);
+            child.localScale = new Vector3(direction * child.localScale.x, child.localScale.y, child.localScale.z);
+        }
+            
         transform.DOJump(transform.position + new Vector3(direction * disx, disy, 0), disy, 1, startt);
         transform.DORotate(new Vector3(0, 0, 0), startt).SetEase(Ease.OutSine);
         float timeCount = 0;

@@ -21,6 +21,7 @@ namespace AI.FSM {
             PlayerController.Instance.transform.position = gameManagerFSM.defaultPlayerPosition.position;
             GameObject.FindGameObjectsWithTag("Pal").ToList().ForEach(pal => pal.GetComponent<PalFSM>().loadDefaultState());
             for (int i = 0; i < gameManagerFSM.items.Length; i++) {
+                gameManagerFSM.items[i].Drop();
                 gameManagerFSM.items[i].transform.position = gameManagerFSM.itemPositions[i].position;
                 gameManagerFSM.items[i].transform.rotation = gameManagerFSM.itemPositions[i].rotation;
             }

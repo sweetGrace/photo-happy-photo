@@ -19,7 +19,8 @@ namespace AI.FSM {
             GameManagerFSM.Instance.Combo++;
             GameManagerFSM.Instance.Score += (int)(GameManagerFSM.Instance.basicScore * GameManagerFSM.Instance.comboMultiplier);
             PalManager manager = fsm.GetComponent<PalManager>();
-            manager.tip.GetComponent<Tips>().OnHide();
+            if (manager.tip != null)
+                manager.tip.GetComponent<Tips>().OnHide();
             manager.PlayInteractClip();
         }
     }

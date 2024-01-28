@@ -157,17 +157,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forward: {x: 0, y: 0, z: 1}
-  speed: 5
+  speed: {x: 0, y: 0}
   leftHand: {fileID: 7942947336599517551}
   rightHand: {fileID: 4028575182693499421}
   foot: {fileID: 750551355621410655}
-  pickUpRange: 2
-  throwForce: 5
+  pickUpRange: 3.5
+  throwForce: 50
   throwAngle: 30
-  rotateForce: 0
-  detectDistance: 0.5
+  rotateForce: 200
+  detectDistance: 0.55
   maxStepHeight: 4
-  extraHeight: 0
+  extraHeight: 0.4
   drawPickupRange: 0
 --- !u!212 &113032465353832545
 SpriteRenderer:

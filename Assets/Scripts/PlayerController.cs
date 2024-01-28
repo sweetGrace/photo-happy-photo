@@ -35,6 +35,7 @@ public class PlayerController : MonoBehaviour {
     private Item rightItem;
     private float faceDirection;
     private bool pickedup;
+    private int comboAtFrameStart;
     /*--------------------------------*/
 
     public static PlayerController Instance { get; private set; } = null;
@@ -60,22 +61,22 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void Update() {
-        int combo = GameManagerFSM.Instance.Combo;
+        comboAtFrameStart = GameManagerFSM.Instance.Combo;
         pickedup = false;
         HandleItemUse();
         HandlePickUp();
         HandleSwap();
         HandleThrow();
 
-        if ((Input.GetButtonDown("UseLeft") || Input.GetButtonDown("UseRight")) &&
-            combo == GameManagerFSM.Instance.Combo) {
-            GameManagerFSM.Instance.Combo = 0;
-        } else if (Input.GetButtonDown("PickUp") && !pickedup && combo == GameManagerFSM.Instance.Combo) {
-            GameManagerFSM.Instance.Combo = 0;
-        }
-
         animator.SetFloat("XSpeed", Input.GetAxis("Horizontal"));
         animator.SetFloat("YSpeed", Input.GetAxis("Vertical"));
+    }
+
+    private void LateUpdate() {
+        if ((Input.GetButtonDown("UseLeft") || Input.GetButtonDown("UseRight")) &&
+            comboAtFrameStart == GameManagerFSM.Instance.Combo) {
+            GameManagerFSM.Instance.Combo = 0;
+        }
     }
 
     private void FixedUpdate() {
@@ -87,7 +88,7 @@ public class PlayerController : MonoBehaviour {
             return;
         if (rightItem == null && leftItem == null)
             return;
-        
+
         float vertical = Input.GetAxis("Vertical");
         Vector3 direction;
         if (Mathf.Approximately(vertical, 0)) {
@@ -129,7 +130,7 @@ public class PlayerController : MonoBehaviour {
         if (!Input.GetButtonDown("PickUp"))
             return;
         Vector3 center = foot.position;
-        var temp = Physics.OverlapSphere(center, pickUpRange, LayerMask.GetMask("Item") | LayerMask.GetMask("Pal") | LayerMask.GetMask("Camera"))
+        var temp = Physics.OverlapSphere(center, pickUpRange, LayerMask.GetMask("Item") | LayerMask.GetMask("Camera"))
             .Where(item => (leftItem == null || item.name != leftItem.name) && (rightItem == null || item.name != rightItem.name))
             .OrderBy(item => (
                 new Vector2(center.x, center.z) - new Vector2(item.transform.position.x, item.transform.position.z)
@@ -164,13 +165,6 @@ public class PlayerController : MonoBehaviour {
             return;
         }
 
-        PalManager pal = collider.GetComponent<PalManager>();
-        if (pal != null) {
-            Debug.Log("Found pal " + pal.name);
-            pal.ImpactByItem(ItemID.None);
-            return;
-        }
-
         if (collider.CompareTag("Camera")) {
             Debug.Log("Found camera");
             collider.GetComponent<AudioSource>()?.Play();
@@ -181,10 +175,34 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void HandleItemUse() {
-        if (Input.GetButtonDown("UseLeft")) {
-            leftItem?.Use(this);
-        } else if (Input.GetButtonDown("UseRight")) {
-            rightItem?.Use(this);
+        if (Input.GetButtonDown("UseLeft") && leftItem != null) {
+            leftItem.Use(this);
+            return;
+        }
+        if (Input.GetButtonDown("UseRight") && rightItem != null) {
+            rightItem.Use(this);
+            return;
+        }
+        if (!Input.GetButtonDown("UseLeft") && !Input.GetButtonDown("UseRight"))
+            return;
+
+        Vector3 center = transform.position;
+        var temp = Physics.OverlapSphere(center, pickUpRange, LayerMask.GetMask("Pal"))
+            .OrderBy(item => (
+                new Vector2(center.x, center.z) - new Vector2(item.transform.position.x, item.transform.position.z)
+            ).sqrMagnitude);
+
+        if (temp.Count() == 0) {
+            Debug.Log("Nothing in pick up range");
+            return;
+        }
+
+        var collider = temp.First();
+        PalManager pal = collider.GetComponent<PalManager>();
+        if (pal != null) {
+            Debug.Log("Found pal " + pal.name);
+            pal.ImpactByItem(ItemID.None);
+            return;
         }
     }
 

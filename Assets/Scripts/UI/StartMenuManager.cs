@@ -9,13 +9,22 @@ public class StartMenuManager : MonoBehaviour {
     public float curtainMoveDistance;
     public float duration;
     public AudioSource audioSource;
+    public GameObject title;
+    public GameObject startButton;
+    [Header("Help")]
+    public GameObject helpPanel;
 
     public void StartGame() {
         audioSource.Play();
+        title.SetActive(false);
+        startButton.SetActive(false);
         leftCurtain.transform.DOMoveX(leftCurtain.transform.position.x - curtainMoveDistance, duration).SetUpdate(true);
-        rightCurtain.transform.DOMoveX(rightCurtain.transform.position.x + curtainMoveDistance, duration).SetUpdate(true).OnComplete(() => {
-            GameManagerFSM.Instance.SetTrigger(AI.FSM.FSMTriggerID.GameStart);
-            Destroy(this.gameObject);
-        });
+        rightCurtain.transform.DOMoveX(rightCurtain.transform.position.x + curtainMoveDistance, duration).SetUpdate(true);
+    }
+
+    public void hideHelp() {
+        helpPanel.SetActive(false);
+        GameManagerFSM.Instance.SetTrigger(AI.FSM.FSMTriggerID.GameStart);
+        Destroy(gameObject);
     }
 }

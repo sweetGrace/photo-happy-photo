@@ -37,6 +37,17 @@ public class PlayerController : MonoBehaviour {
     private bool pickedup;
     /*--------------------------------*/
 
+    public static PlayerController Instance { get; private set; } = null;
+
+    private void Awake() {
+        if (Instance == null) {
+            Instance = this;
+        } else {
+            Debug.LogWarning("PlayerController instance already exists. Destroying duplicate.");
+            Destroy(gameObject);
+        }
+    }
+
     private void Start() {
         forward.Normalize();
         right = -Vector3.Cross(forward, Vector3.up).normalized;
@@ -112,7 +123,7 @@ public class PlayerController : MonoBehaviour {
             return;
         Vector3 center = foot.position;
         var temp = Physics.OverlapSphere(center, pickUpRange, LayerMask.GetMask("Item") | LayerMask.GetMask("Pal") | LayerMask.GetMask("Camera"))
-            .Where(item => item != leftItem && item != rightItem)
+            .Where(item => (leftItem == null || item.name != leftItem.name) && (rightItem == null || item.name != rightItem.name))
             .OrderBy(item => (
                 new Vector2(center.x, center.z) - new Vector2(item.transform.position.x, item.transform.position.z)
             ).sqrMagnitude);

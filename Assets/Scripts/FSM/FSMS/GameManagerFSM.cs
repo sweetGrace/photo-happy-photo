@@ -1,6 +1,8 @@
 using UnityEngine;
 using AI.FSM;
 using System.Linq;
+using System;
+using System.Collections.Generic;
 
 public class GameManagerFSM : FSMBase {
     public static GameManagerFSM Instance { get; private set; } = null;
@@ -9,6 +11,10 @@ public class GameManagerFSM : FSMBase {
     public float GameTime;
     public int basicScore;
     public int happyScore;
+    [Header("Default Positions")]
+    public Transform defaultPlayerPosition;
+    public Item[] items;
+    public Transform[] itemPositions;
     [Header("Audio")]
     public AudioSource audioSource;
     public AudioClip comboClip;

@@ -51,6 +51,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultStateID: 1
   animator: {fileID: 493021475688828173}
+  startCryProbability: 0.12
 --- !u!114 &1444291944858885854
 MonoBehaviour:
   m_ObjectHideFlags: 0

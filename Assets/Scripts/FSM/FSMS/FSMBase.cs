@@ -18,7 +18,7 @@ namespace AI.FSM {
         /// </summary>
         protected virtual void Init() {
         }
-        protected void loadDefaultState() {
+        public void loadDefaultState() {
             // 加载默认状态
             _currentState = _defaultState = _states.Find(s => s.StateID == defaultStateID);
             _currentState.OnStateEnter(this);

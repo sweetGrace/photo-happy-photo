@@ -1,6 +1,9 @@
 using AI.FSM;
+using UnityEngine;
 
 public class PalFSM : FSMBase {
+    [Range(0, 1)]
+    public float startCryProbability;
     protected override void SetUpFSM() {
         base.SetUpFSM();
 
@@ -17,5 +20,12 @@ public class PalFSM : FSMBase {
         PalCryState palCryState = new PalCryState();
         palCryState.AddMap(FSMTriggerID.ImpactByItem, FSMStateID.PalStableLaugh);
         _states.Add(palCryState);
+    }
+
+    protected override void Init() {
+        if (Random.value < startCryProbability)
+            this.defaultStateID = FSMStateID.PalCry;
+        else
+            this.defaultStateID = FSMStateID.PalStableLaugh;
     }
 }

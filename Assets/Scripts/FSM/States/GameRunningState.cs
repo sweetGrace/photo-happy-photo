@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 namespace AI.FSM {
@@ -17,6 +18,12 @@ namespace AI.FSM {
             gameManagerFSM.Score = 0;
             gameManagerFSM.Combo = 0;
             gameManagerFSM.cameraed = false;
+            PlayerController.Instance.transform.position = gameManagerFSM.defaultPlayerPosition.position;
+            GameObject.FindGameObjectsWithTag("Pal").ToList().ForEach(pal => pal.GetComponent<PalFSM>().loadDefaultState());
+            for (int i = 0; i < gameManagerFSM.items.Length; i++) {
+                gameManagerFSM.items[i].transform.position = gameManagerFSM.itemPositions[i].position;
+                gameManagerFSM.items[i].transform.rotation = gameManagerFSM.itemPositions[i].rotation;
+            }
 
             Time.timeScale = 1;
         }

@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour {
     public Transform rightHand;
     [Header("PickUp")]
     public float pickUpRange;
+    public float pickUpOffsetY;
     [Header("Throw")]
     public float throwForce;
     public float throwAngle;
@@ -39,25 +40,28 @@ public class PlayerController : MonoBehaviour {
         leftItem = rightItem = null;
         faceDirection = 1;
     }
-
-    private void FixedUpdate() {
+    
+    private void Update() {
         int combo = GameManagerFSM.Instance.Combo;
         pickedup = false;
-        HandleMove();
         HandleItemUse();
         HandlePickUp();
         HandleSwap();
         HandleThrow();
 
-        if ((Input.GetButton("UseLeft") || Input.GetButton("UseRight")) &&
+        if ((Input.GetButtonDown("UseLeft") || Input.GetButtonDown("UseRight")) &&
             combo == GameManagerFSM.Instance.Combo) {
             GameManagerFSM.Instance.Combo = 0;
-        } else if (Input.GetButton("PickUp") && !pickedup && combo == GameManagerFSM.Instance.Combo) {
+        } else if (Input.GetButtonDown("PickUp") && !pickedup && combo == GameManagerFSM.Instance.Combo) {
             GameManagerFSM.Instance.Combo = 0;
         }
 
         animator.SetFloat("XSpeed", Input.GetAxis("Horizontal"));
         animator.SetFloat("YSpeed", Input.GetAxis("Vertical"));
+    }
+
+    private void FixedUpdate() {
+        HandleMove();
     }
 
     private void HandleThrow() {
@@ -85,24 +89,33 @@ public class PlayerController : MonoBehaviour {
     private void HandleSwap() {
         if (!Input.GetButtonDown("Swap"))
             return;
-        leftItem.Drop();
-        rightItem.Drop();
-        leftItem.Pick(rightHand);
-        rightItem.Pick(leftHand);
+        leftItem?.Drop();
+        rightItem?.Drop();
+        leftItem?.Pick(rightHand);
+        rightItem?.Pick(leftHand);
     }
 
     private void HandlePickUp() {
-        if (!Input.GetButton("PickUp"))
+        if (!Input.GetButtonDown("PickUp"))
             return;
-        Collider collider = Physics.OverlapSphere(transform.position, pickUpRange, LayerMask.GetMask("Item") | LayerMask.GetMask("Pal") | LayerMask.GetMask("Camera"))
+        var temp = Physics.OverlapSphere(new Vector3(
+            transform.position.x,
+            transform.position.y - pickUpOffsetY,
+            transform.position.z
+        ), pickUpRange, LayerMask.GetMask("Item") | LayerMask.GetMask("Pal") | LayerMask.GetMask("Camera"))
             .Where(item => item != leftItem && item != rightItem)
-            .OrderBy(item => (transform.position - item.transform.position).sqrMagnitude)
-            .First();
-        if (collider == null)
+            .OrderBy(item => (transform.position - item.transform.position).sqrMagnitude);
+        
+        if (temp.Count() == 0) {
+            Debug.Log("Nothing in pick up range");
             return;
+        }
+
+        var collider = temp.First();
 
         Item item = collider.GetComponent<Item>();
         if (item != null) {
+            Debug.Log("Found item");
             if (rightItem != null) {
                 rightItem.Drop();
                 rightItem = null;
@@ -117,11 +130,13 @@ public class PlayerController : MonoBehaviour {
 
         PalManager pal = collider.GetComponent<PalManager>();
         if (pal != null) {
+            Debug.Log("Found pal");
             pal.ImpactByItem(ItemID.None);
             return;
         }
 
         if (collider.CompareTag("Camera")) {
+            Debug.Log("Found camera");
             collider.GetComponent<AudioSource>()?.Play();
             GameManagerFSM.Instance.cameraed = true;
             GameManagerFSM.Instance.SetTrigger(AI.FSM.FSMTriggerID.GameEnd);
@@ -130,9 +145,9 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void HandleItemUse() {
-        if (Input.GetButton("UseLeft")) {
+        if (Input.GetButtonDown("UseLeft")) {
             leftItem?.Use(this);
-        } else if (Input.GetButton("UseRight")) {
+        } else if (Input.GetButtonDown("UseRight")) {
             rightItem?.Use(this);
         }
     }

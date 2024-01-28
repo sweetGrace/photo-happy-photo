@@ -25,7 +25,7 @@ public class Tips : MonoBehaviour, IUIState
     Sequence seq;
     public void OnHide()
     {
-        transform.GetComponent<Image>().CrossFadeAlpha(0, endt, true);
+        // transform.GetComponent<Image>().CrossFadeAlpha(0, endt, true);
         transform.GetChild(0).GetComponent<Image>().CrossFadeAlpha(0, endt, true);
         float timeCount = 0;
         

@@ -262,13 +262,17 @@ PrefabInstance:
       propertyPath: disx
       value: 1.5
       objectReference: {fileID: 0}
+    - target: {fileID: 2934449728090846739, guid: cc456887a5fa4f74c87ffd0316b5f4e3, type: 3}
+      propertyPath: parent
+      value: 
+      objectReference: {fileID: 2820319483918259857}
     - target: {fileID: 2934449728090846760, guid: cc456887a5fa4f74c87ffd0316b5f4e3, type: 3}
       propertyPath: m_Name
       value: DrumTip
       objectReference: {fileID: 0}
     - target: {fileID: 2934449728090846760, guid: cc456887a5fa4f74c87ffd0316b5f4e3, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2934449728090846764, guid: cc456887a5fa4f74c87ffd0316b5f4e3, type: 3}
       propertyPath: m_Pivot.x

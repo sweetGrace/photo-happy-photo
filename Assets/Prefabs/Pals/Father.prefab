@@ -262,6 +262,10 @@ PrefabInstance:
       propertyPath: disx
       value: 1.5
       objectReference: {fileID: 0}
+    - target: {fileID: 3886906749627800404, guid: 207c196321a93de4ebf30cca8c1212dc, type: 3}
+      propertyPath: parent
+      value: 
+      objectReference: {fileID: 8942609749148365023}
     - target: {fileID: 3886906749627800427, guid: 207c196321a93de4ebf30cca8c1212dc, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -320,7 +324,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3886906749627800427, guid: 207c196321a93de4ebf30cca8c1212dc, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3886906749627800427, guid: 207c196321a93de4ebf30cca8c1212dc, type: 3}
       propertyPath: m_LocalRotation.w

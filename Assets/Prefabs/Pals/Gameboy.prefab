@@ -367,6 +367,10 @@ PrefabInstance:
       value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 5468089040739338801, guid: 91804292022854d4e997b144bbb0260f, type: 3}
+      propertyPath: parent
+      value: 
+      objectReference: {fileID: 3117830781286671700}
+    - target: {fileID: 5468089040739338801, guid: 91804292022854d4e997b144bbb0260f, type: 3}
       propertyPath: direction
       value: -1
       objectReference: {fileID: 0}

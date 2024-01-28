@@ -5,6 +5,7 @@ using DG.Tweening;
 using UnityEngine.UI;
 using static UnityEngine.GraphicsBuffer;
 using System.Threading;
+using TreeEditor;
 
 public class Tips : MonoBehaviour, IUIState
 {
@@ -23,6 +24,7 @@ public class Tips : MonoBehaviour, IUIState
     [Header("待机动画单次循环持续时间")]
     public float processangle = 30;
     Sequence seq;
+    public Transform parent;
     public void OnHide()
     {
         // transform.GetComponent<Image>().CrossFadeAlpha(0, endt, true);
@@ -37,9 +39,9 @@ public class Tips : MonoBehaviour, IUIState
 
     public void OnShow()
     {
+        transform.position = new Vector3(transform.position.x, transform.position.y, parent.position.z);
         if (seq != null) seq.Kill();
         gameObject.SetActive(true);
-        transform.position = new Vector3(transform.position.x, transform.position.y, -6f);
         transform.localScale = new Vector3(transform.localScale.x * direction, transform.localScale.y, transform.localScale.z);
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, 30 * direction));
         if (direction == -1)

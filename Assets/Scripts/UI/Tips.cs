@@ -5,23 +5,22 @@ using DG.Tweening;
 using UnityEngine.UI;
 using static UnityEngine.GraphicsBuffer;
 using System.Threading;
-using TreeEditor;
 
 public class Tips : MonoBehaviour, IUIState
 {
-    [Header("µ¯³ö·½Ïò£¨1ÎªÓÒÉÏ£¬-1Îª×óÉÏ£©")]
+    [Header("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1Îªï¿½ï¿½ï¿½Ï£ï¿½-1Îªï¿½ï¿½ï¿½Ï£ï¿½")]
     public int direction = 1;
-    [Header("xµ¯³ö¾àÀë")]
+    [Header("xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½")]
     public float disx = 3;
-    [Header("yµ¯³ö¾àÀë")]
+    [Header("yï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½")]
     public float disy = 1;
-    [Header("µ¯³ö¶¯»­³ÖÐøÊ±¼ä")]
+    [Header("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½")]
     public float startt = 1;
-    [Header("½¥Òþ¶¯»­³ÖÐøÊ±¼ä")]
+    [Header("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½")]
     public float endt = 1;
-    [Header("´ý»ú¶¯»­³ÖÐøÊ±¼ä")]
+    [Header("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½")]
     public float processt = 3;
-    [Header("´ý»ú¶¯»­µ¥´ÎÑ­»·³ÖÐøÊ±¼ä")]
+    [Header("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½")]
     public float processangle = 30;
     Sequence seq;
     public Transform parent;

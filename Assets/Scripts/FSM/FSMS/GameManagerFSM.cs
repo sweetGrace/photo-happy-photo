@@ -11,6 +11,7 @@ public class GameManagerFSM : FSMBase {
     public float GameTime;
     public int basicScore;
     public int happyScore;
+    public int photoBasicScore;
     [Header("Default Positions")]
     public Transform defaultPlayerPosition;
     public Item[] items;
@@ -77,6 +78,6 @@ public class GameManagerFSM : FSMBase {
             return _score;
         int cnt = GameObject.FindGameObjectsWithTag("Pal")
             .Count(obj => obj.GetComponent<PalFSM>().CurrentState != FSMStateID.PalCry);
-        return _score + cnt * happyScore;
+        return _score + cnt * happyScore + basicScore;
     }
 }

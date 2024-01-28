@@ -101,6 +101,9 @@ public class PlayerController : MonoBehaviour {
         rightItem?.Drop();
         leftItem?.Pick(rightHand);
         rightItem?.Pick(leftHand);
+        Item temp = leftItem;
+        leftItem = rightItem;
+        rightItem = temp;
     }
 
     private void HandlePickUp() {

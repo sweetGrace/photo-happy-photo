@@ -12,10 +12,11 @@ public class PlayerController : MonoBehaviour {
     public Transform rightHand;
     [Header("PickUp")]
     public float pickUpRange;
-    public float pickUpOffsetY;
+    public Vector3 pickUpOffset;
     [Header("Throw")]
     public float throwForce;
     public float throwAngle;
+    public float rotateForce;
     /*--------------------------------*/
 
     /************Components************/
@@ -40,7 +41,7 @@ public class PlayerController : MonoBehaviour {
         leftItem = rightItem = null;
         faceDirection = 1;
     }
-    
+
     private void Update() {
         int combo = GameManagerFSM.Instance.Combo;
         pickedup = false;
@@ -83,6 +84,8 @@ public class PlayerController : MonoBehaviour {
 
         rightItem.Drop();
         rightItem.GetComponent<Rigidbody>().AddForce(direction * throwForce, ForceMode.Impulse);
+        if (direction != Vector3.zero)
+            rightItem.GetComponent<Rigidbody>().AddTorque(Vector3.Cross(direction, Vector3.up) * rotateForce, ForceMode.Impulse);
         rightItem = null;
     }
 
@@ -98,14 +101,11 @@ public class PlayerController : MonoBehaviour {
     private void HandlePickUp() {
         if (!Input.GetButtonDown("PickUp"))
             return;
-        var temp = Physics.OverlapSphere(new Vector3(
-            transform.position.x,
-            transform.position.y - pickUpOffsetY,
-            transform.position.z
-        ), pickUpRange, LayerMask.GetMask("Item") | LayerMask.GetMask("Pal") | LayerMask.GetMask("Camera"))
+        Vector3 center = transform.position + pickUpOffset;
+        var temp = Physics.OverlapSphere(center, pickUpRange, LayerMask.GetMask("Item") | LayerMask.GetMask("Pal") | LayerMask.GetMask("Camera"))
             .Where(item => item != leftItem && item != rightItem)
-            .OrderBy(item => (transform.position - item.transform.position).sqrMagnitude);
-        
+            .OrderBy(item => (center - item.transform.position).sqrMagnitude);
+
         if (temp.Count() == 0) {
             Debug.Log("Nothing in pick up range");
             return;
